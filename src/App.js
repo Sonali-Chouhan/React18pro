@@ -30,7 +30,8 @@ function App() {
             </div>
             <Routes>
               <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/usercreate" element={<UserCreate />} />
+              <Route path="/usercreate" element={<UserCreate />}/>
+              <Route path="/usercreate/:id" element={<UserCreate/>} />
               <Route path="/userlist" element={<UserList />} />
             </Routes>
           </>
@@ -44,6 +45,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/singin" element={<SingIn />} />
               <Route path="/singup" element={<SingUp />} />
+              {/* implement */}
               <Route path="/about" element={<About />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/homes" element={<Homes />} />

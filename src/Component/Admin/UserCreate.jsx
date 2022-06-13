@@ -1,38 +1,57 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "./Header";
 import Navbar from "./Navbar";
 import Wrapper from "./Wrapper";
-//import { useNavigate, useParams } from "react-router";
-//import { useSelector } from "react-redux";
+import { useParams, useNavigate } from "react-router";
+import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
-import {userCreate} from "../../Redux/Datareducer"
+import { userCreate, userUpdate } from "../../Redux/Datareducer";
+import {
+  PlusOutlined,
+  CheckOutlined,
+  CloseSquareOutlined,
+  
+} from "@ant-design/icons";
+const userId = localStorage.getItem("User_Id");
 
 const UserCreate = () => {
   const dispatch = useDispatch();
-
-  // let { id } = useParams();
-
+  const navigate = useNavigate();
+  const { id } = useParams();
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm();
+  // const Creates = useSelector((state) => state.User?.Create);
+  const isShow=useSelector((state)=>state?.User?.Edit?.post)
+  console.log("isShow",isShow)
 
   const submit = (data) => {
-    dispatch(userCreate(data))
+    data["user_id"] = userId;
+    if(id){
+       dispatch(userUpdate(data))
+    }
+    else{
+      dispatch(userCreate(data));
+    }
+   
+    navigate("/userlist");
+    
   };
-  // const handleCancel = () => {
-  //   window.location.href="/createuser"
-
-  // };
-  // useEffect(() => {
-  //   const items = isShow;
-  //   if (items) {
-  //     setValue("title", items.title);
-  //     setValue("description", items.description);
-  //   }
-  // }, [isShow]);
+  const handleCancel = () => {
+    window.location.href = "/usercreate";
+  };
+  useEffect(() => {
+    const items = isShow;
+    if (items) {
+      setValue("title", items.title);
+      setValue("description", items.description);
+      setValue("id", items.id)
+    }
+  }, [isShow]);
 
   return (
     <div
@@ -60,13 +79,13 @@ const UserCreate = () => {
                   />
                   <div className="overlay-box">
                     <div className="user-content">
-                      <a href="javascript:void(0)">
+                    
                         <img
                           src="../plugins/images/users/genu.jpg"
                           className="thumb-lg img-circle"
                           alt="img"
                         />
-                      </a>
+                     
                       <h4 className="text-white mt-2">User Name</h4>
                       <h5 className="text-white mt-2">info@myadmin.com</h5>
                     </div>
@@ -119,19 +138,21 @@ const UserCreate = () => {
                     </div>
                     <div className="form-group mb-4">
                       <div className="col-sm-12">
-                        {/* {id ? (
-                            <span>
-                              <button type="submit">Save</button>{" "}
-                              <button type="submit" onClick={handleCancel}>
-                                Cancel
-                              </button>
-                            </span>
-                          ) : (
-                            
-                          )} */}
-                        <button type="submit" className="btn btn-success">
-                          AddContext
-                        </button>
+                        {id ? (
+                          <span>
+                            <button type="submit">
+                              <CheckOutlined />
+                            </button>{" "}
+                            <button type="submit" onClick={handleCancel}>
+                              <CloseSquareOutlined />
+                            </button>
+                          </span>
+                        ) : (
+                          <button type="submit" className="btn btn-success">
+                            AddContext
+                            <PlusOutlined />
+                          </button>
+                        )}
                       </div>
                     </div>
                   </form>
