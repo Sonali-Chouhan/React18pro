@@ -9,7 +9,7 @@ import{ EditFilled,DeleteFilled ,FormOutlined}from "@ant-design/icons"
 
 const UserList = () => {
   const dispatch = useDispatch();
-  const navigate=useNavigate();
+  const navigate=useNavigate();                                                                                                                                                                                                                                                                                                            
   const PostList = useSelector(state => state?.User?.PostList?.posts)
   const mess  =useSelector(state => state?.User?.delete)
   console.log("sata",PostList)

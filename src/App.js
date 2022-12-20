@@ -47,7 +47,7 @@ function App() {
               <Route path="/singup" element={<SingUp />} />
               {/* implement */}
               <Route path="/about" element={<About />} />
-              <Route path="/profile" element={<Profile />} />
+              <Route path="/profile" element={<Profile />}/>
               <Route path="/homes" element={<Homes />} />
             </Routes>
           </>
